@@ -4,12 +4,14 @@ var input = [
   { x: 8, y: 15 }
 ];
 
-var result = input.map(function(obj) {
+var result = input.map(pythagoras);
+
+function pythagoras(obj) {
   var x = obj.x;
   var y = obj.y;
   var zSquared = (x * x) + (y * y);
   return Math.sqrt(zSquared);
-});
+}
 
 console.log(result[0] === 5);
 console.log(result[1] === 13);
