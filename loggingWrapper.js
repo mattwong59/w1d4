@@ -1,26 +1,11 @@
 var wrapLog = function (callback, name) {
-
-  var nme = arguments[1]
   return function () {
-    var args_array = [].slice.call(arguments);
-    var x = args_array[0]
-    var y = args_array[1]
-    var z = args_array[2]
-    var answer = callback(x,y,z);
-    console.log(`${nme} (${buildString(args_array)}) => ${answer}`);
+    var args_array = Array.prototype.slice.apply(arguments);
+    var answer = callback.apply(null, args_array);
+    console.log(`${name} (${args_array.join(', ')}) => ${answer}`);
+    return answer;
   }
 };
-
-function buildString (args) {
-  var str = "";
-  str += args[0];
-  for (var i = 1; i < args.length; i++) {
-    if (args[i] > 0) {
-      str += ", " + args[i];
-    }
-  }
-  return str;
-}
 
 var area = function (x, y) {
   return x * y;
@@ -39,3 +24,4 @@ var logVolume = wrapLog(volume, "volume");
 
 logVolume(5, 3, 2); // volume(5, 3, 2) => 30
 logVolume(3, 2, 4); // volume(3, 2, 4) => 24
+
